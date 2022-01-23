@@ -1,4 +1,5 @@
 import express, { Response } from 'express'
+import cors from 'cors'
 
 async function bootstrap() {
     const app: express.Application = express()
@@ -12,7 +13,7 @@ async function bootstrap() {
     })
 }
 
-(async () => {
+;(async () => {
     try {
         await bootstrap()
     } catch (e) {
