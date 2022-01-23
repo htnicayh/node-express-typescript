@@ -10,9 +10,7 @@
         "sourceMap": true,
         "outDir": "./dist",
         "baseUrl": "./",
-        "incremental": true,
-        "noUnusedLocals": true
-    
+        "incremental": true
     },
     "compileOnSave": true,
     "include": [
