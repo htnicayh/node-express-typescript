@@ -1,11 +1,26 @@
-import express, { Response } from 'express'
+import express, { Application } from 'express'
+import morgan from 'morgan'
+import logger from './utils/logger'
+import { corsMiddleware } from './middlewares/cors.middleware'
 
 async function bootstrap() {
-    const app: express.Application = express()
+    const app: Application = express()
 
-    app.get('/', (_: unknown, res: Response) => {
-        res.send('Hello')
-    })
+    logger.info('Connected')
+
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: true }))
+    app.use(corsMiddleware)
+
+    app.use(
+        morgan('combined', {
+            stream: {
+                write: (message: string) => {
+                    logger.info(message)
+                },
+            },
+        }),
+    )
 
     app.listen(3000, () => {
         console.log('Server is running at http://localhost:3000')
