@@ -1,15 +1,22 @@
 import express, { Application } from 'express'
 import morgan from 'morgan'
-import logger from './utils/logger'
-import { corsMiddleware } from './middlewares/cors.middleware'
+import { createConnection } from 'typeorm'
+import { corsMiddleware } from './middlewares'
+import { routers } from './routes'
+import { logger } from './utils'
 
 async function bootstrap() {
     const app: Application = express()
+    await createConnection()
 
-    logger.info('Connected')
+    logger.info('Database Connected ...')
 
     app.use(express.json())
-    app.use(express.urlencoded({ extended: true }))
+    app.use(
+        express.urlencoded({
+            extended: true,
+        }),
+    )
     app.use(corsMiddleware)
 
     app.use(
@@ -21,6 +28,10 @@ async function bootstrap() {
             },
         }),
     )
+
+    for (const router of routers) {
+        app.use(router.path, router.router)
+    }
 
     app.listen(3000, () => {
         console.log('Server is running at http://localhost:3000')

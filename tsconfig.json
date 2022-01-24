@@ -9,9 +9,10 @@
         "allowSyntheticDefaultImports": true,
         "target": "es2017",
         "sourceMap": true,
-        "outDir": "./dist",
-        "baseUrl": "./",
-        "incremental": true
+        "rootDir": "./",
+        "outDir": "dist",
+        "incremental": true,
+        "types": ["reflect-metadata", "node"]
     },
     "compileOnSave": true,
     "include": [

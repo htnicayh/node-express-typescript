@@ -1,0 +1,7 @@
+export const HTTP_CODE = {
+    NOT_FOUND: 404,
+    NOT_AUTHENTICATION: 401,
+    UNAUTHORIZE: 403,
+    SUCCESS: 200,
+    ERROR: 500,
+}
