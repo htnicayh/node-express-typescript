@@ -9,9 +9,13 @@ export default class UserEntity extends CoreEntity {
     @Column({ name: 'password' })
     password: string
 
+    @Column({ name: 'role' })
+    role: string
+
     constructor(username: string, password: string) {
         super()
         this.username = username
         this.password = password
+        this.role = 'user'
     }
 }
