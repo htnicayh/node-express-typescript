@@ -7,6 +7,7 @@ import { logger } from './utils'
 
 async function bootstrap() {
     const app: Application = express()
+    const PORT = 3000
     await createConnection()
 
     logger.info('Database Connected ...')
@@ -33,8 +34,8 @@ async function bootstrap() {
         app.use(router.path, router.router)
     }
 
-    app.listen(3000, () => {
-        console.log('Server is running at http://localhost:3000')
+    app.listen(PORT, () => {
+        console.log(`Server is running at http://localhost:${PORT}`)
     })
 }
 
