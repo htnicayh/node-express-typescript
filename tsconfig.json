@@ -10,7 +10,6 @@
         "target": "es2017",
         "sourceMap": true,
         "rootDir": "./",
-        "baseUrl": ".",
         "outDir": "dist",
         "incremental": true,
         "paths": {
