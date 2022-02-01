@@ -6,4 +6,6 @@ export const MESSAGE = {
         MISSING_TOKEN: 'Missing Token',
         UNAUTHORIZE: 'Unauthorize',
     },
+    INVALID_PARAMS: 'Username or password wrong',
+    PASSWORD_INCORRECT: 'Password Incorect',
 }

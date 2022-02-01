@@ -1,9 +1,9 @@
 import jwt, { SignOptions } from 'jsonwebtoken'
 import { logger } from './logger'
-import { TokenInterface } from '../interfaces'
+import { TokenData } from '../interfaces'
 
 export const generate = (
-    payload: TokenInterface | Buffer,
+    payload: TokenData | Buffer,
     secretSignature: string,
     options: SignOptions,
 ): Promise<string> => {
@@ -24,9 +24,9 @@ export const generate = (
     })
 }
 
-export const verify = (token: string, secretSignature: string): Promise<TokenInterface> => {
+export const verify = (token: string, secretSignature: string): Promise<TokenData> => {
     return new Promise((resolve, reject) => {
-        jwt.verify(token, secretSignature, (error: Error, payload: TokenInterface) => {
+        jwt.verify(token, secretSignature, (error: Error, payload: TokenData) => {
             if (!error) {
                 resolve(payload)
             } else {

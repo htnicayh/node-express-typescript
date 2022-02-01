@@ -3,6 +3,9 @@ import CoreEntity from './core.entity'
 
 @Entity('users', { orderBy: { id: 'ASC' } })
 export default class UserEntity extends CoreEntity {
+    @Column({ name: 'email', unique: true, default: null })
+    email: string
+
     @Column({ name: 'username' })
     username: string
 

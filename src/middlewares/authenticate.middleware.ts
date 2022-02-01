@@ -1,13 +1,13 @@
 import { NextFunction, Response } from 'express'
 import { HTTP_CODE, MESSAGE } from '../constants'
 import UserEntity from '../entities/user.entity'
-import { TokenInterface } from '../interfaces'
-import { userService } from '../services'
+import { TokenData } from '../interfaces'
+import { getUserByUserName } from '../services'
 import { RequestThrow } from '../types'
 import { error, logger, verify } from '../utils'
 
 export const authenticate = async (
-    request: RequestThrow<TokenInterface>,
+    request: RequestThrow<TokenData>,
     response: Response,
     next: NextFunction,
 ): Promise<void> => {
@@ -16,9 +16,9 @@ export const authenticate = async (
         const token: string = authorization.split(' ')[1]
         if (token) {
             try {
-                const tokenDecode: TokenInterface = await verify(token, process.env.SECRET_TOKEN)
-                const { id } = tokenDecode
-                const user: UserEntity = await userService.getUserByID(id)
+                const tokenDecode: TokenData = await verify(token, process.env.SECRET_TOKEN)
+                const { username } = tokenDecode
+                const user: UserEntity = await getUserByUserName(username)
                 if (user) {
                     request.payload = tokenDecode
                     next()
