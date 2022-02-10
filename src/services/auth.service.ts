@@ -6,7 +6,7 @@ export const getUserByUserName = async (username: string): Promise<UserEntity> =
     const repository = getRepository(UserEntity)
     const user = await repository
         .createQueryBuilder('users')
-        .where('users.username =: username', { username })
+        .where('users.username = :username', { username: username })
         .getOne()
     return user
 }

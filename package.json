@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "dev": "nodemon --legacy-watch --exec ts-node src/server.ts",
     "lint": "eslint \"{src, test}/**/*.ts\" --fix",
     "prettier": "prettier --write \"{src, test}/**/*.ts\"",
     "start": "nodemon ./dist/server.js",

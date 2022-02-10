@@ -22,7 +22,7 @@ export const login = async (request: Request, response: Response): Promise<void>
                         role,
                     }
                     const token = await generate(payload, process.env.SECRET_TOKEN, {
-                        expiresIn: '1d',
+                        noTimestamp: true,
                     })
                     if (token) {
                         logger.debug(payload)
@@ -49,22 +49,27 @@ export const register = async (request: Request, response: Response): Promise<vo
     try {
         const payload: RegisterTransfer = request.body
         if (payload) {
-            const { email, username, password } = payload
+            const { email, username, password, rePassword } = payload
             const user = await getUserByUserName(username)
             if (!user) {
                 const hashPw = await hash(password)
-                const payload = {
-                    email: email,
-                    username: username,
-                }
-                await registerUser({
-                    ...payload,
-                    password: hashPw,
-                    rePassword: hashPw,
-                })
+                const hashRePw = await hash(rePassword)
+                if (hashPw === hashRePw) {
+                    const payload = {
+                        email: email,
+                        username: username,
+                    }
+                    await registerUser({
+                        ...payload,
+                        password: hashPw,
+                        rePassword: hashPw,
+                    })
 
-                logger.debug(payload)
-                success(response, payload, HTTP_CODE.SUCCESS, MESSAGE.SUCCESS)
+                    logger.debug(payload)
+                    success(response, payload, HTTP_CODE.SUCCESS, MESSAGE.SUCCESS)
+                } else {
+                    error(response, null, HTTP_CODE.ERROR, MESSAGE.PASSWORD_INCORRECT)
+                }
             } else {
                 error(response, null, HTTP_CODE.NOT_AUTHENTICATION, MESSAGE.AUTHEN.UNAUTHORIZE)
             }
