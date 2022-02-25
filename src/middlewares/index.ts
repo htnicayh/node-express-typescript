@@ -1,2 +1,2 @@
 export * from './cors.middleware'
-export * from './error-handle.middleware'
+export * from './error-handler.middleware'

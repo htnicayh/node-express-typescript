@@ -1,10 +1,10 @@
 module.exports = {
     type: 'mysql',
-    host: process.env.HOST || '127.0.0.1',
-    port: process.env.PORT || 3306,
-    username: process.env.ACCOUNT || 'root',
-    password: process.env.PASSWORD || 'Hyacinth130620',
-    database: process.env.NAME || 'node',
+    host: process.env.HOST,
+    port: process.env.PORT,
+    username: process.env.ACCOUNT,
+    password: process.env.PASSWORD,
+    database: process.env.NAME,
     charset: 'utf8',
     synchronize: process.env.NODE_ENV !== 'production',
     entities: [

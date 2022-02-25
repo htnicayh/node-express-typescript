@@ -1,7 +1,7 @@
 import express, { Application } from 'express'
 import morgan from 'morgan'
 import { createConnection } from 'typeorm'
-import { corsMiddleware } from './middlewares'
+import { catchAsError, corsMiddleware } from './middlewares'
 import { routers } from './routes'
 import { logger } from './utils'
 
@@ -21,7 +21,7 @@ async function bootstrap() {
     app.use(corsMiddleware)
 
     app.use(
-        morgan('combined', {
+        morgan('dev', {
             stream: {
                 write: (message: string) => {
                     logger.info(message)
@@ -33,6 +33,8 @@ async function bootstrap() {
     for (const router of routers) {
         app.use(router.path, router.router)
     }
+
+    app.use(catchAsError)
 
     app.listen(PORT, () => {
         console.log(`Server is running at http://localhost:${PORT}`)

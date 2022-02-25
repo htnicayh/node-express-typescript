@@ -1,14 +1,12 @@
-FROM node:alpine
+FROM node:latest
 
 WORKDIR /app
 
-COPY package.json /app
+COPY package.json .
 
 RUN npm install
-RUN npm uninstall bcrypt
-RUN npm i bcrypt
 
-COPY . /app
+COPY . .
 
 EXPOSE 3000
 

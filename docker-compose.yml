@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  database:
+    image: 'mysql'
+    container_name: database
+    volumes:
+      - datadir:/var/lib/mysql
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_ACCOUNT: $ACCOUNT
+      - MYSQL_ROOT_PASSWORD: $PASSWORD
+    ports:
+      - '3306:3306'
+    networks:
+      - node-network
+
+  servers:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: servers
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/app
+      - /app/node_modules
+    networks:
+      - node-network
+    depends_on:
+      - database
+    stdin_open: true
+    tty: true
+
+volumes:
+  datadir: {}
+
+networks:
+  node-network:
+    driver: bridge
