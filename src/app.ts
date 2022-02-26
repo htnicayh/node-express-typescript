@@ -21,7 +21,7 @@ async function bootstrap() {
     app.use(corsMiddleware)
 
     app.use(
-        morgan('dev', {
+        morgan('combined', {
             stream: {
                 write: (message: string) => {
                     logger.info(message)
@@ -29,6 +29,7 @@ async function bootstrap() {
             },
         }),
     )
+    app.use(morgan('dev'))
 
     for (const router of routers) {
         app.use(router.path, router.router)

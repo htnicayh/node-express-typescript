@@ -1,6 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken'
-import { logger } from './logger'
 import { TokenData } from '../interfaces'
+import { logger } from './logger'
 
 export const generate = (
     payload: TokenData | Buffer,
