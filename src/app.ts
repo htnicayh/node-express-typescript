@@ -3,7 +3,7 @@ import morgan from 'morgan'
 import { createConnection } from 'typeorm'
 import { catchAsError, corsMiddleware } from './middlewares'
 import { routers } from './routes'
-import { logger } from './utils'
+import { logger, sessionApp } from './utils'
 
 async function bootstrap() {
     const app: Application = express()
@@ -18,6 +18,7 @@ async function bootstrap() {
             extended: true,
         }),
     )
+    app.use(sessionApp)
     app.use(corsMiddleware)
 
     app.use(
