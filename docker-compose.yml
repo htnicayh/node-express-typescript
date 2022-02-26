@@ -33,8 +33,19 @@ services:
     stdin_open: true
     tty: true
 
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes:
+      - cache:/data
+
 volumes:
   datadir: {}
+  cache:
+    driver: local
 
 networks:
   node-network:
